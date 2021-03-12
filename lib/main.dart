@@ -83,207 +83,209 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
       body: Container(
         child: Builder(
             builder: (context) => Form(
-              //Chave do formulário
-              key: chaveFormulario,
-              //Campos do formulário
-              //Coluna dos campos de entrada
-              child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    new Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          new Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                new Text(
-                                  "ClienteId",
-                                  style: new TextStyle(
-                                      fontSize: 14.0, fontFamily: "Roboto"),
-                                ),
-                                SizedBox(
-                                    width: 75,
-                                    height: 25,
-                                    child: new TextFormField(
-                                        focusNode: clienteIdFocus,
-                                        style: new TextStyle(
-                                            fontSize: 14.0,
-                                            fontFamily: "Roboto"),
-                                        keyboardType: TextInputType.number,
-                                        inputFormatters: <
-                                            TextInputFormatter>[
-                                          FilteringTextInputFormatter
-                                              .digitsOnly
-                                        ],
-                                        // somente números podem ser digitados
-                                        //Validação da entrada
-                                        validator: (value) {
-                                          if (value.isEmpty) {
-                                            return "Insira o clienteId!";
-                                          }
-                                        },
-                                        controller: clienteIdController)),
-                                new Text(
-                                  "Nome Cliente",
-                                  style: new TextStyle(
-                                      fontSize: 14.0, fontFamily: "Roboto"),
-                                ),
-                                SizedBox(
-                                    width: 200,
-                                    height: 30,
-                                    child: new TextFormField(
-                                        style: new TextStyle(
-                                            fontSize: 14.0,
-                                            fontFamily: "Roboto"),
-                                        //Validação da entrada
-                                        validator: (value) {
-                                          if (value.isEmpty) {
-                                            return "Insira o nome do cliente!";
-                                          }
-                                        },
-                                        controller: nomeController)),
-                                new Text(
-                                  "CPF Cliente",
-                                  style: new TextStyle(
-                                      fontSize: 14.0, fontFamily: "Roboto"),
-                                ),
-                                SizedBox(
-                                    width: 150,
-                                    height: 30,
-                                    child: new TextFormField(
-                                        style: new TextStyle(
-                                            fontSize: 14.0,
-                                            fontFamily: "Roboto"),
-                                        keyboardType: TextInputType.number,
-                                        inputFormatters: <
-                                            TextInputFormatter>[
-                                          FilteringTextInputFormatter
-                                              .digitsOnly
-                                        ],
-                                        // somente números podem ser digitados
-                                        //Validação da entrada
-                                        validator: (value) {
-                                          if (value.isEmpty) {
-                                            return "Insira o cpf do cliente!";
-                                          }
-                                        },
-                                        controller: cpfController)),
-                                new Text(
-                                  mensagemRegistros,
-                                  style: new TextStyle(
-                                      fontSize: 14.0, fontFamily: "Roboto"),
-                                ),
-                              ]),
+                  //Chave do formulário
+                  key: chaveFormulario,
+                  //Campos do formulário
+                  //Coluna dos campos de entrada
+                  child: new Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        new Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              new Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    new Text(
+                                      "ClienteId",
+                                      style: new TextStyle(
+                                          fontSize: 14.0, fontFamily: "Roboto"),
+                                    ),
+                                    SizedBox(
+                                        width: 75,
+                                        height: 25,
+                                        child: new TextFormField(
+                                            focusNode: clienteIdFocus,
+                                            style: new TextStyle(
+                                                fontSize: 14.0,
+                                                fontFamily: "Roboto"),
+                                            keyboardType: TextInputType.number,
+                                            inputFormatters: <
+                                                TextInputFormatter>[
+                                              FilteringTextInputFormatter
+                                                  .digitsOnly
+                                            ],
+                                            // somente números podem ser digitados
+                                            //Validação da entrada
+                                            validator: (value) {
+                                              if (value.isEmpty) {
+                                                return "Insira o clienteId!";
+                                              }
+                                            },
+                                            controller: clienteIdController)),
+                                    new Text(
+                                      "Nome Cliente",
+                                      style: new TextStyle(
+                                          fontSize: 14.0, fontFamily: "Roboto"),
+                                    ),
+                                    SizedBox(
+                                        width: 200,
+                                        height: 30,
+                                        child: new TextFormField(
+                                            style: new TextStyle(
+                                                fontSize: 14.0,
+                                                fontFamily: "Roboto"),
+                                            //Validação da entrada
+                                            validator: (value) {
+                                              if (value.isEmpty) {
+                                                return "Insira o nome do cliente!";
+                                              }
+                                            },
+                                            controller: nomeController)),
+                                    new Text(
+                                      "CPF Cliente",
+                                      style: new TextStyle(
+                                          fontSize: 14.0, fontFamily: "Roboto"),
+                                    ),
+                                    SizedBox(
+                                        width: 150,
+                                        height: 30,
+                                        child: new TextFormField(
+                                            style: new TextStyle(
+                                                fontSize: 14.0,
+                                                fontFamily: "Roboto"),
+                                            keyboardType: TextInputType.number,
+                                            inputFormatters: <
+                                                TextInputFormatter>[
+                                              FilteringTextInputFormatter
+                                                  .digitsOnly
+                                            ],
+                                            // somente números podem ser digitados
+                                            //Validação da entrada
+                                            validator: (value) {
+                                              if (value.isEmpty) {
+                                                return "Insira o cpf do cliente!";
+                                              }
+                                            },
+                                            controller: cpfController)),
+                                    new Text(
+                                      mensagemRegistros,
+                                      style: new TextStyle(
+                                          fontSize: 14.0, fontFamily: "Roboto"),
+                                    ),
+                                  ]),
 
-                          //Coluna dos botões
-                          new Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                new ElevatedButton(
-                                    key: null,
-                                    onPressed: incluirClick,
-                                    child: new Text(
-                                      "INCLUIR",
-                                      style: new TextStyle(
-                                          fontSize: 12.0,
-                                          fontFamily: "Roboto"),
-                                    )),
-                                new ElevatedButton(
-                                    key: null,
-                                    onPressed: alterarClick,
-                                    child: new Text(
-                                      "ALTERAR",
-                                      style: new TextStyle(
-                                          fontSize: 12.0,
-                                          fontFamily: "Roboto"),
-                                    )),
-                                new ElevatedButton(
-                                    key: null,
-                                    onPressed: excluirClick,
-                                    child: new Text(
-                                      "EXCLUIR",
-                                      style: new TextStyle(
-                                          fontSize: 12.0,
-                                          fontFamily: "Roboto"),
-                                    )),
-                                new ElevatedButton(
-                                    key: null,
-                                    onPressed: consultarClick,
-                                    child: new Text(
-                                      "CONSULTAR",
-                                      style: new TextStyle(
-                                          fontSize: 12.0,
-                                          fontFamily: "Roboto"),
-                                    )),
-                                new ElevatedButton(
-                                    key: null,
-                                    onPressed: listarClick,
-                                    child: new Text(
-                                      "LISTAR",
-                                      style: new TextStyle(
-                                          fontSize: 12.0,
-                                          fontFamily: "Roboto"),
-                                    )),
-                                new ElevatedButton(
-                                    key: null,
-                                    onPressed: esvaziarBDClick,
-                                    child: new Text(
-                                      "ESVAZIAR BD",
-                                      style: new TextStyle(
-                                          fontSize: 12.0,
-                                          fontFamily: "Roboto"),
-                                    )),
-                                new ElevatedButton(
-                                    key: null,
-                                    onPressed: limparClick,
-                                    child: new Text(
-                                      "LIMPAR",
-                                      style: new TextStyle(
-                                          fontSize: 12.0,
-                                          fontFamily: "Roboto"),
-                                    )),
-                                new ElevatedButton(
-                                    key: null,
-                                    onPressed: fecharClick,
-                                    child: new Text(
-                                      "FECHAR",
-                                      style: new TextStyle(
-                                          fontSize: 12.0,
-                                          fontFamily: "Roboto"),
-                                    )),
-                              ]),
-                        ]),
-                    new Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          new Text(
-                            "Lista dos dados:",
-                            style: new TextStyle(
-                                fontSize: 14.0, fontFamily: "Roboto"),
-                          )
-                        ]),
-                    new Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          new Text(
-                            mensagemDados,
-                            style: new TextStyle(
-                                fontSize: 14.0, fontFamily: "Roboto"),
-                          )
-                        ]),
-                  ]),
-            )),
+                              //Coluna dos botões
+                              new Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    new ElevatedButton(
+                                        key: null,
+                                        onPressed: incluirClick,
+                                        child: new Text(
+                                          "INCLUIR",
+                                          style: new TextStyle(
+                                              fontSize: 12.0,
+                                              fontFamily: "Roboto"),
+                                        )),
+                                    new ElevatedButton(
+                                        key: null,
+                                        onPressed: alterarClick,
+                                        child: new Text(
+                                          "ALTERAR",
+                                          style: new TextStyle(
+                                              fontSize: 12.0,
+                                              fontFamily: "Roboto"),
+                                        )),
+                                    new ElevatedButton(
+                                        key: null,
+                                        onPressed: excluirClick,
+                                        child: new Text(
+                                          "EXCLUIR",
+                                          style: new TextStyle(
+                                              fontSize: 12.0,
+                                              fontFamily: "Roboto"),
+                                        )),
+                                    new ElevatedButton(
+                                        key: null,
+                                        onPressed: consultarClick,
+                                        child: new Text(
+                                          "CONSULTAR",
+                                          style: new TextStyle(
+                                              fontSize: 12.0,
+                                              fontFamily: "Roboto"),
+                                        )),
+                                    new ElevatedButton(
+                                        key: null,
+                                        onPressed: listarClick,
+                                        child: new Text(
+                                          "LISTAR",
+                                          style: new TextStyle(
+                                              fontSize: 12.0,
+                                              fontFamily: "Roboto"),
+                                        )),
+                                    new ElevatedButton(
+                                        key: null,
+                                        onPressed: esvaziarBDClick,
+                                        child: new Text(
+                                          "ESVAZIAR BD",
+                                          style: new TextStyle(
+                                              fontSize: 12.0,
+                                              fontFamily: "Roboto"),
+                                        )),
+                                    new ElevatedButton(
+                                        key: null,
+                                        onPressed: limparClick,
+                                        child: new Text(
+                                          "LIMPAR",
+                                          style: new TextStyle(
+                                              fontSize: 12.0,
+                                              fontFamily: "Roboto"),
+                                        )),
+                                    new ElevatedButton(
+                                        key: null,
+                                        onPressed: () {
+                                          fecharClick();
+                                        },
+                                        child: new Text(
+                                          "FECHAR",
+                                          style: new TextStyle(
+                                              fontSize: 12.0,
+                                              fontFamily: "Roboto"),
+                                        )),
+                                  ]),
+                            ]),
+                        new Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              new Text(
+                                "Lista dos dados:",
+                                style: new TextStyle(
+                                    fontSize: 14.0, fontFamily: "Roboto"),
+                              )
+                            ]),
+                        new Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              new Text(
+                                mensagemDados,
+                                style: new TextStyle(
+                                    fontSize: 14.0, fontFamily: "Roboto"),
+                              )
+                            ]),
+                      ]),
+                )),
       ),
     );
   }
@@ -312,13 +314,15 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
         Fluttertoast.showToast(
             msg: "Inclusão realizada com sucesso!",
             toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER);
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 2);
         atualizarRegistros();
       } else {
         Fluttertoast.showToast(
             msg: "Inclusão não realizada!",
             toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER);
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 2);
       }
     }
   }
@@ -331,7 +335,7 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
     if (clienteIdController.text.isNotEmpty) {
       //Instancia o objeto Cliente e preenche os atributos do objeto com os dados da interface
       Cliente cliente =
-      await dbHelper.getClient(int.parse(clienteIdController.text));
+          await dbHelper.getClient(int.parse(clienteIdController.text));
       if (cliente != null) {
         // Cliente para alterar
         Cliente cliente = new Cliente(int.parse(clienteIdController.text),
@@ -364,6 +368,70 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
   }
 
   /**
+   * Diálogo de saída da aplicação
+   */
+  showAlertDialogExcluir(BuildContext context) {
+    // set up the buttons
+    Widget botaoSim = TextButton(
+      onPressed: () {
+        Navigator.of(context).pop(); // fecha a caixa de diálogo
+        excluirRegistro();
+      },
+      child: Text("Sim"),
+    );
+
+    Widget botaoNao = TextButton(
+      onPressed: () {
+        Navigator.of(context).pop(); // fecha a caixa de diálogo
+        //Não faz nada
+      },
+      child: Text("Não"),
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Excluir cliente"),
+      content: Text("Desejar excluir o registro?"),
+      actions: [
+        botaoSim,
+        botaoNao,
+      ],
+    );
+
+    // Mostra a caixa de diálogo
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  /**
+   * Método que excluir o registro do cliente
+   */
+  void excluirRegistro() async {
+    final resultadoExclusao =
+        await dbHelper.excluir(int.parse(clienteIdController.text));
+    if (resultadoExclusao != 0) {
+      print("exluindo registro1");
+      Fluttertoast.showToast(
+          msg: "Exclusão realizada com sucesso!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 2);
+      print("exluindo registro2");
+      atualizarRegistros();
+    } else {
+      Fluttertoast.showToast(
+          msg: "Exclusão não realizada!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 2);
+    }
+  }
+
+  /**
    * Evento do botão excluir
    */
   void excluirClick() async {
@@ -371,22 +439,10 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
     if (clienteIdController.text.isNotEmpty) {
       //Instancia o objeto Cliente e preenche os atributos do objeto com os dados da interface
       Cliente cliente =
-      await dbHelper.getClient(int.parse(clienteIdController.text));
+          await dbHelper.getClient(int.parse(clienteIdController.text));
       if (cliente != null) {
-        final resultadoExclusao =
-        await dbHelper.excluir(int.parse(clienteIdController.text));
-        if (resultadoExclusao != 0) {
-          Fluttertoast.showToast(
-              msg: "Exclusão realizada com sucesso!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER);
-          atualizarRegistros();
-        } else {
-          Fluttertoast.showToast(
-              msg: "Exclusão não realizada!",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER);
-        }
+        //Chama o diálogo para confirmar a exclusão
+        showAlertDialogExcluir(context);
       } else {
         Fluttertoast.showToast(
             msg: "Cliente não encontrado, digite um clienteId válido!",
@@ -410,7 +466,7 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
     if (clienteIdController.text.isNotEmpty) {
       //Instancia o objeto Cliente e preenche os atributos do objeto com os dados da interface
       Cliente cliente =
-      await dbHelper.getClient(int.parse(clienteIdController.text));
+          await dbHelper.getClient(int.parse(clienteIdController.text));
       if (cliente != null) {
         nomeController.text = cliente.getNome;
         cpfController.text = cliente.getCpf;
@@ -438,7 +494,7 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
    */
   void listarClick() async {
     final todasLinhas = await dbHelper.listaRegistros();
-    //Percorre a lista concatenando as daidas
+    //Percorre a lista concatenando os dados de cliente
     String saida = "";
     for (var row in todasLinhas) {
       saida = saida + row.toString() + "\n";
@@ -450,11 +506,56 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
   }
 
   /**
+   * Diálogo de esvaziar o BD da aplicação
+   */
+  showAlertDialogEsvaziarBD(BuildContext context) {
+    // set up the buttons
+    Widget botaoSim = TextButton(
+      onPressed: () {
+        Navigator.of(context).pop(); // fecha a caixa de diálogo
+        dbHelper.dropDatabase(); //Apaga a tabela
+        Fluttertoast.showToast(
+            msg: "Tabela Apagada!",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER);
+        atualizarRegistros(); //Atualiza os registro em tela
+      },
+      child: Text("Sim"),
+    );
+
+    Widget botaoNao = TextButton(
+      onPressed: () {
+        Navigator.of(context).pop(); // fecha a caixa de diálogo
+        //Não faz nada
+      },
+      child: Text("Não"),
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Esvaziar BD"),
+      content: Text("Deseja esvaziar a tabela Cliente?"),
+      actions: [
+        botaoSim,
+        botaoNao,
+      ],
+    );
+
+    // Mostra a caixa de diálogo
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  /**
    * Evento do botão esvaziar BD
    */
   void esvaziarBDClick() async {
-    await dbHelper.dropDatabase();
-    atualizarRegistros();
+    //Confirma a exclusão dos dados da tabela
+    showAlertDialogEsvaziarBD(context);
   }
 
   /**
@@ -474,9 +575,48 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
   }
 
   /**
+   * Dialogo de saída da aplicação
+   */
+  showAlertDialogSair(BuildContext context) {
+    // set up the buttons
+    Widget botaoSim = TextButton(
+      onPressed: () {
+        SystemNavigator.pop();
+      },
+      child: Text("Sim"),
+    );
+
+    Widget botaoNao = TextButton(
+      onPressed: () {
+        Navigator.of(context).pop(); // fecha a caixa de diálogo
+      },
+      child: Text("Não"),
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Fechar aplicativo"),
+      content: Text("Você tem certeza que deseja sair?"),
+      actions: [
+        botaoSim,
+        botaoNao,
+      ],
+    );
+
+    // Mostra a caixa de diálogo
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  /**
    * Evento do botão fechar
    */
   void fecharClick() {
-    SystemNavigator.pop();
+    //Chamada a caixa de diálogo para confirmar a saída
+    showAlertDialogSair(context);
   }
 }
