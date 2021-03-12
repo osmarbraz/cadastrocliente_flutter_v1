@@ -334,12 +334,10 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
     //Verifica se o clienteId foi preenchido
     if (clienteIdController.text.isNotEmpty) {
       //Instancia o objeto Cliente e preenche os atributos do objeto com os dados da interface
-      Cliente cliente =
-          await dbHelper.getClient(int.parse(clienteIdController.text));
+      Cliente cliente = await dbHelper.getClient(int.parse(clienteIdController.text));
       if (cliente != null) {
         // Cliente para alterar
-        Cliente cliente = new Cliente(int.parse(clienteIdController.text),
-            nomeController.text, cpfController.text);
+        Cliente cliente = new Cliente(int.parse(clienteIdController.text), nomeController.text, cpfController.text);
         final resultadoAlteracao = await dbHelper.alterar(cliente);
         if (resultadoAlteracao != 0) {
           Fluttertoast.showToast(
@@ -374,6 +372,7 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
     // set up the buttons
     Widget botaoSim = TextButton(
       onPressed: () {
+        //Ação para a resposta sim
         Navigator.of(context).pop(); // fecha a caixa de diálogo
         excluirRegistro();
       },
@@ -382,6 +381,7 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
 
     Widget botaoNao = TextButton(
       onPressed: () {
+        //Ação para a resposta não
         Navigator.of(context).pop(); // fecha a caixa de diálogo
         //Não faz nada
       },
@@ -411,16 +411,13 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
    * Método que excluir o registro do cliente
    */
   void excluirRegistro() async {
-    final resultadoExclusao =
-        await dbHelper.excluir(int.parse(clienteIdController.text));
+    final resultadoExclusao = await dbHelper.excluir(int.parse(clienteIdController.text));
     if (resultadoExclusao != 0) {
-      print("exluindo registro1");
       Fluttertoast.showToast(
           msg: "Exclusão realizada com sucesso!",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 2);
-      print("exluindo registro2");
       atualizarRegistros();
     } else {
       Fluttertoast.showToast(
@@ -438,8 +435,7 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
     //Verifica se o clienteId foi preenchido
     if (clienteIdController.text.isNotEmpty) {
       //Instancia o objeto Cliente e preenche os atributos do objeto com os dados da interface
-      Cliente cliente =
-          await dbHelper.getClient(int.parse(clienteIdController.text));
+      Cliente cliente = await dbHelper.getClient(int.parse(clienteIdController.text));
       if (cliente != null) {
         //Chama o diálogo para confirmar a exclusão
         showAlertDialogExcluir(context);
@@ -465,8 +461,7 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
     //Verifica se o clienteId foi preenchido
     if (clienteIdController.text.isNotEmpty) {
       //Instancia o objeto Cliente e preenche os atributos do objeto com os dados da interface
-      Cliente cliente =
-          await dbHelper.getClient(int.parse(clienteIdController.text));
+      Cliente cliente = await dbHelper.getClient(int.parse(clienteIdController.text));
       if (cliente != null) {
         nomeController.text = cliente.getNome;
         cpfController.text = cliente.getCpf;
@@ -512,6 +507,7 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
     // set up the buttons
     Widget botaoSim = TextButton(
       onPressed: () {
+        //Ação para a resposta sim
         Navigator.of(context).pop(); // fecha a caixa de diálogo
         dbHelper.dropDatabase(); //Apaga a tabela
         Fluttertoast.showToast(
@@ -525,6 +521,7 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
 
     Widget botaoNao = TextButton(
       onPressed: () {
+        //Ação para a resposta não
         Navigator.of(context).pop(); // fecha a caixa de diálogo
         //Não faz nada
       },
@@ -581,6 +578,7 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
     // set up the buttons
     Widget botaoSim = TextButton(
       onPressed: () {
+        //Ação para a resposta sim
         SystemNavigator.pop();
       },
       child: Text("Sim"),
@@ -588,6 +586,7 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
 
     Widget botaoNao = TextButton(
       onPressed: () {
+        //Ação para a resposta não
         Navigator.of(context).pop(); // fecha a caixa de diálogo
       },
       child: Text("Não"),
