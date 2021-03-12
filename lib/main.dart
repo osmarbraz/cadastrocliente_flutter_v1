@@ -314,15 +314,13 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
         Fluttertoast.showToast(
             msg: "Inclusão realizada com sucesso!",
             toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 2);
+            gravity: ToastGravity.CENTER);
         atualizarRegistros();
       } else {
         Fluttertoast.showToast(
             msg: "Inclusão não realizada!",
             toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 2);
+            gravity: ToastGravity.CENTER);
       }
     }
   }
