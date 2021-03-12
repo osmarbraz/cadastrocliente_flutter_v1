@@ -1,14 +1,17 @@
-import 'package:flutter_cadastro_cliente_v1/database_helper.dart';
+import 'package:flutter_cadastro_cliente_v1/sqlite_cliente_metadados.dart';
 
-// Classe que representa um cliente
-//https://medium.com/flutter-comunidade-br/orienta%C3%A7%C3%A3o-a-objetos-em-dart-16542b792eb9
+/**
+ * Classe do Modelo a ser persistido no banco de dados
+ */
 class Cliente {
   // Atributos
   int _clienteId;
   String _nome;
   String _cpf;
 
-  // Construtor (atributos privados não podem ser opcionais)
+  /**
+   *  Construtor (atributos privados não podem ser opcionais)
+   */
   Cliente(this._clienteId, this._nome, this._cpf);
 
   // Getter e Setter do clienteId
@@ -43,9 +46,9 @@ class Cliente {
    */
   Map<String, dynamic> get getRow {
     Map<String, dynamic> row = {
-      DatabaseHelper.columnClienteId : getClienteId,
-      DatabaseHelper.columnNome : getNome,
-      DatabaseHelper.columnCpf  : getCpf
+      ClienteDAOMetadados.colunaClienteId: getClienteId,
+      ClienteDAOMetadados.colunaNome: getNome,
+      ClienteDAOMetadados.colunaCPF: getCpf
     };
     return row;
   }

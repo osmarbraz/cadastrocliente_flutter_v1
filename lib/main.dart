@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_cadastro_cliente_v1/database_helper.dart';
+
 import 'package:flutter_cadastro_cliente_v1/cliente.dart';
+import 'package:flutter_cadastro_cliente_v1/cliente_dao.dart';
+import 'package:flutter_cadastro_cliente_v1/sqlite_cliente_dao.dart';
+import 'package:flutter_cadastro_cliente_v1/sqlite_dao_factory.dart';
 
 //Programa principal
 void main() {
@@ -37,7 +40,7 @@ class MinhaHomePage extends StatefulWidget {
 
 class _MinhaHomePageState extends State<MinhaHomePage> {
   // referencia nossa classe single para gerenciar o banco de dados
-  final dbHelper = DatabaseHelper.instance;
+  final ClienteDAO clientedao = new SqliteClienteDAO();
 
   //Mensagem com a quantidade de registros
   String mensagemRegistros = "Registros: 0";
@@ -294,7 +297,7 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
    * Atualizar registros em tela
    */
   void atualizarRegistros() async {
-    final qtde = await dbHelper.getQtdeRegistros();
+    final qtde = await clientedao.getQtdeRegistros();
     setState(() {
       mensagemRegistros = "Registros: ${qtde.toString()}";
     });
@@ -309,7 +312,7 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
       Cliente cliente = new Cliente(int.parse(clienteIdController.text),
           nomeController.text, cpfController.text);
       //Executa a inclusão
-      var resultado = await dbHelper.incluir(cliente);
+      var resultado = await clientedao.incluir(cliente);
       if (resultado != 0) {
         Fluttertoast.showToast(
             msg: "Inclusão realizada com sucesso!",
@@ -332,11 +335,13 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
     //Verifica se o clienteId foi preenchido
     if (clienteIdController.text.isNotEmpty) {
       //Instancia o objeto Cliente e preenche os atributos do objeto com os dados da interface
-      Cliente cliente = await dbHelper.getClient(int.parse(clienteIdController.text));
+      Cliente cliente =
+          await clientedao.getCliente(int.parse(clienteIdController.text));
       if (cliente != null) {
         // Cliente para alterar
-        Cliente cliente = new Cliente(int.parse(clienteIdController.text), nomeController.text, cpfController.text);
-        final resultadoAlteracao = await dbHelper.alterar(cliente);
+        Cliente cliente = new Cliente(int.parse(clienteIdController.text),
+            nomeController.text, cpfController.text);
+        final resultadoAlteracao = await clientedao.alterar(cliente);
         if (resultadoAlteracao != 0) {
           Fluttertoast.showToast(
               msg: "Alteração realizada com sucesso!",
@@ -409,7 +414,8 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
    * Método que excluir o registro do cliente
    */
   void excluirRegistro() async {
-    final resultadoExclusao = await dbHelper.excluir(int.parse(clienteIdController.text));
+    final resultadoExclusao =
+        await clientedao.excluir(int.parse(clienteIdController.text));
     if (resultadoExclusao != 0) {
       Fluttertoast.showToast(
           msg: "Exclusão realizada com sucesso!",
@@ -433,7 +439,8 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
     //Verifica se o clienteId foi preenchido
     if (clienteIdController.text.isNotEmpty) {
       //Instancia o objeto Cliente e preenche os atributos do objeto com os dados da interface
-      Cliente cliente = await dbHelper.getClient(int.parse(clienteIdController.text));
+      Cliente cliente =
+          await clientedao.getCliente(int.parse(clienteIdController.text));
       if (cliente != null) {
         //Chama o diálogo para confirmar a exclusão
         showAlertDialogExcluir(context);
@@ -459,7 +466,8 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
     //Verifica se o clienteId foi preenchido
     if (clienteIdController.text.isNotEmpty) {
       //Instancia o objeto Cliente e preenche os atributos do objeto com os dados da interface
-      Cliente cliente = await dbHelper.getClient(int.parse(clienteIdController.text));
+      Cliente cliente =
+          await clientedao.getCliente(int.parse(clienteIdController.text));
       if (cliente != null) {
         nomeController.text = cliente.getNome;
         cpfController.text = cliente.getCpf;
@@ -486,7 +494,7 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
    * Evento do botão listar
    */
   void listarClick() async {
-    final todasLinhas = await dbHelper.listaRegistros();
+    final todasLinhas = await clientedao.listaRegistros();
     //Percorre a lista concatenando os dados de cliente
     String saida = "";
     for (var row in todasLinhas) {
@@ -499,7 +507,7 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
   }
 
   /**
-   * Diálogo de esvaziar o BD da aplicação
+   * Diálogo de confirmação para esvaziar o BD da aplicação
    */
   showAlertDialogEsvaziarBD(BuildContext context) {
     // set up the buttons
@@ -507,7 +515,8 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
       onPressed: () {
         //Ação para a resposta sim
         Navigator.of(context).pop(); // fecha a caixa de diálogo
-        dbHelper.dropDatabase(); //Apaga a tabela
+        SQLiteDAOFactory sqlitedaofactory = new SQLiteDAOFactory();
+        sqlitedaofactory.dropDatabase(); //Apaga a tabela
         Fluttertoast.showToast(
             msg: "Tabela Apagada!",
             toastLength: Toast.LENGTH_SHORT,
@@ -570,7 +579,7 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
   }
 
   /**
-   * Dialogo de saída da aplicação
+   * Diálogo de saída da aplicação
    */
   showAlertDialogSair(BuildContext context) {
     // set up the buttons
