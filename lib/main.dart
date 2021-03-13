@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'package:flutter_cadastro_cliente_v1/cliente.dart';
-import 'package:flutter_cadastro_cliente_v1/cliente_dao.dart';
-import 'package:flutter_cadastro_cliente_v1/sqlite_cliente_dao.dart';
-import 'package:flutter_cadastro_cliente_v1/sqlite_dao_factory.dart';
+import 'package:flutter_cadastro_cliente_v1/dao/DAOFactory.dart';
+import 'package:flutter_cadastro_cliente_v1/dao/SQLiteBDHelper.dart';
+import 'package:flutter_cadastro_cliente_v1/dao/cliente/ClienteDAO.dart';
+import 'package:flutter_cadastro_cliente_v1/entidade/Cliente.dart';
 
 //Programa principal
 void main() {
@@ -39,8 +39,8 @@ class MinhaHomePage extends StatefulWidget {
 }
 
 class _MinhaHomePageState extends State<MinhaHomePage> {
-  // referencia nossa classe single para gerenciar o banco de dados
-  final ClienteDAO clientedao = new SqliteClienteDAO();
+  // Referência a fábrica e o dao para cliente
+  final ClienteDAO clientedao = DAOFactory.getDAOFactory().getClienteDAO();
 
   //Mensagem com a quantidade de registros
   String mensagemRegistros = "Registros: 0";
@@ -297,7 +297,7 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
    * Atualizar registros em tela
    */
   void atualizarRegistros() async {
-    final qtde = await clientedao.getQtdeRegistros();
+    final qtde = await clientedao.getNumeroRegistros();
     setState(() {
       mensagemRegistros = "Registros: ${qtde.toString()}";
     });
@@ -309,8 +309,8 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
   void incluirClick() async {
     if (chaveFormulario.currentState.validate()) {
       //Instancia o objeto Cliente e preenche os atributos do objeto com os dados da interface
-      Cliente cliente = new Cliente(int.parse(clienteIdController.text),
-          nomeController.text, cpfController.text);
+      Cliente cliente = new Cliente(
+          clienteIdController.text, nomeController.text, cpfController.text);
       //Executa a inclusão
       var resultado = await clientedao.incluir(cliente);
       if (resultado != 0) {
@@ -335,12 +335,12 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
     //Verifica se o clienteId foi preenchido
     if (clienteIdController.text.isNotEmpty) {
       //Instancia o objeto Cliente e preenche os atributos do objeto com os dados da interface
-      Cliente cliente =
-          await clientedao.getCliente(int.parse(clienteIdController.text));
-      if (cliente != null) {
+      Cliente cliente = new Cliente(clienteIdController.text, "", "");
+      bool resultadoConsulta = await cliente.abrir();
+      if (resultadoConsulta == true) {
         // Cliente para alterar
-        Cliente cliente = new Cliente(int.parse(clienteIdController.text),
-            nomeController.text, cpfController.text);
+        cliente.setNome = nomeController.text;
+        cliente.setCpf = cpfController.text;
         final resultadoAlteracao = await clientedao.alterar(cliente);
         if (resultadoAlteracao != 0) {
           Fluttertoast.showToast(
@@ -414,8 +414,9 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
    * Método que excluir o registro do cliente
    */
   void excluirRegistro() async {
-    final resultadoExclusao =
-        await clientedao.excluir(int.parse(clienteIdController.text));
+    //Instancia o objeto Cliente e preenche os atributos do objeto com os dados da interface
+    Cliente cliente = new Cliente(clienteIdController.text, "", "");
+    final resultadoExclusao = await clientedao.excluir(cliente);
     if (resultadoExclusao != 0) {
       Fluttertoast.showToast(
           msg: "Exclusão realizada com sucesso!",
@@ -439,9 +440,11 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
     //Verifica se o clienteId foi preenchido
     if (clienteIdController.text.isNotEmpty) {
       //Instancia o objeto Cliente e preenche os atributos do objeto com os dados da interface
-      Cliente cliente =
-          await clientedao.getCliente(int.parse(clienteIdController.text));
-      if (cliente != null) {
+      Cliente cliente = new Cliente(clienteIdController.text, "", "");
+      //Procura o cliente
+      bool resultadoConsulta = await cliente.abrir();
+      //Se encontrar chama o diálogo
+      if (resultadoConsulta == true) {
         //Chama o diálogo para confirmar a exclusão
         showAlertDialogExcluir(context);
       } else {
@@ -466,9 +469,10 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
     //Verifica se o clienteId foi preenchido
     if (clienteIdController.text.isNotEmpty) {
       //Instancia o objeto Cliente e preenche os atributos do objeto com os dados da interface
-      Cliente cliente =
-          await clientedao.getCliente(int.parse(clienteIdController.text));
-      if (cliente != null) {
+      //Instancia o objeto Cliente e preenche os atributos do objeto com os dados da interface
+      Cliente cliente = new Cliente(clienteIdController.text, "", "");
+      bool resultadoConsulta = await cliente.abrir();
+      if (resultadoConsulta == true) {
         nomeController.text = cliente.getNome;
         cpfController.text = cliente.getCpf;
         Fluttertoast.showToast(
@@ -494,11 +498,23 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
    * Evento do botão listar
    */
   void listarClick() async {
-    final todasLinhas = await clientedao.listaRegistros();
-    //Percorre a lista concatenando os dados de cliente
-    String saida = "";
-    for (var row in todasLinhas) {
-      saida = saida + row.toString() + "\n";
+    //Instancia o objeto Cliente
+    Cliente cliente = new Cliente("", "", "");
+    //Recupera a lista de todos os clientes aplicando o fitro sem atribuir nenhum valor ao objeto
+    List<Cliente> lista = await clientedao.aplicarFiltro(cliente);
+    //Cabeçalho da listagem
+    String saida = "clienteId - nome - cpf\n";
+    //Percorre a lista recuperando os dados do objeto
+    for (int i = 0; i < lista.length; i++) {
+      //Recupera o cliente i da lista
+      Cliente cli = lista[i];
+      saida = saida +
+          cli.getClienteId +
+          "-" +
+          cli.getNome +
+          "-" +
+          cli.getCpf +
+          "\n";
     }
     //Exibe a saida
     setState(() {
@@ -515,8 +531,8 @@ class _MinhaHomePageState extends State<MinhaHomePage> {
       onPressed: () {
         //Ação para a resposta sim
         Navigator.of(context).pop(); // fecha a caixa de diálogo
-        SQLiteDAOFactory sqlitedaofactory = new SQLiteDAOFactory();
-        sqlitedaofactory.dropDatabase(); //Apaga a tabela
+        SQLiteBDHelper dbHelper = new SQLiteBDHelper();
+        dbHelper.apagarBancoDados(); //Apaga a tabela
         Fluttertoast.showToast(
             msg: "Tabela Apagada!",
             toastLength: Toast.LENGTH_SHORT,

@@ -1,4 +1,4 @@
-import 'package:flutter_cadastro_cliente_v1/cliente.dart';
+import 'package:flutter_cadastro_cliente_v1/entidade/Cliente.dart';
 
 /**
  * Classe abstrata dos métodos do DAO para cliente
@@ -8,13 +8,11 @@ abstract class ClienteDAO {
 
   Future<int> incluir(Cliente cliente);
 
-  Future<List<Map<String, dynamic>>> listaRegistros();
-
-  Future<int> getQtdeRegistros();
-
   Future<int> alterar(Cliente cliente);
 
-  Future<int> excluir(int id);
+  Future<int> excluir(Cliente cliente);
 
-  Future<Cliente> getCliente(int clienteId);
+  Future<List<Cliente>> aplicarFiltro(Cliente cliente);
+
+  Future<int> getNumeroRegistros();
 }
