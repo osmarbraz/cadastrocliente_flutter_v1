@@ -5,11 +5,26 @@ import 'package:path_provider/path_provider.dart';
 
 import 'package:flutter_cadastro_cliente_v1/Cliente.dart';
 
+/*
+ *  Os método são *Future" pois é usado para representar um valor potencial,
+ *  ou erro, que estará disponível em algum momento no futuro.
+ *  Usando um *Future*, podemos tratar os erros semelhantes ao esquema que *Try* e *Catch*.
+ *
+ *  Como estamos usando SQLite precisamos a biblioteca sqflite.
+ *  A instalação da biblioteca deve ocorrer na pasta raíz  do projeto com o seguinte comando:
+ *  $ flutter pub add sqflite
+ *  Caso queira atualizar a versão, use o comando:
+ *  $ flutter pub upgrade sqflite
+ */
 class DatabaseHelper {
-  //Altere aqui os dados do seu banco de dados
+  /**
+   * Altere aqui os dados do seu banco de dados
+   */
   static final _databaseName = "cliente.db";
 
-  //Versão do banco de dados
+  /**
+   * Versão do banco de dados
+   */
   static final _databaseVersion = 1;
 
   /**
@@ -70,7 +85,7 @@ class DatabaseHelper {
    */
   Future<int> incluir(Cliente cliente) async {
     Database db = await getDatabase;
-    return await db.insert(TABLE, cliente.getRow);
+    return await db.insert(TABLE, cliente.getMapColunasValores);
   }
 
   /**
@@ -98,7 +113,7 @@ class DatabaseHelper {
   Future<int> alterar(Cliente cliente) async {
     Database db = await getDatabase;
     String id = cliente.getClienteId;
-    return await db.update(TABLE, cliente.getRow,
+    return await db.update(TABLE, cliente.getMapColunasValores,
         where: '$colunaClienteId = ?', whereArgs: [id]);
   }
 
